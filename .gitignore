@@ -1,0 +1,42 @@
+
+# 忽略后缀名
+*.exe
+*.pdb
+*.sln
+*.csproj
+*.cache
+*.manifest
+*.txt
+*.suo
+*.config
+*.Designer.cs
+*.resx
+*.MF
+*.xml
+*.jar
+*.iml
+*.project
+*.mymetadata
+*.classpath
+*.bak
+*.class
+*.WeDrive
+*.jar
+*.class
+
+# 忽略通配符目录
+*.vs*/
+*bin*/
+*obj*/
+*Properties*/
+*.vscode*/
+*.idea*/
+*.myeclipse*/
+*.settings*/
+*.metadata*/
+*WEB-INF*/
+
+
+# 排除目录
+java/Servers/
+
