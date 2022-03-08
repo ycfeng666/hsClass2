@@ -1,4 +1,3 @@
-
 # 忽略后缀名
 *.exe
 *.pdb
@@ -23,6 +22,7 @@
 *.WeDrive
 *.jar
 *.class
+*.user
 
 # 忽略通配符目录
 *.vs*/
@@ -35,8 +35,12 @@
 *.settings*/
 *.metadata*/
 *WEB-INF*/
-
+*packages*/
 
 # 排除目录
 java/Servers/
+
+# 排除指定文件
+Global.asax.cs
+Global.asax
 
