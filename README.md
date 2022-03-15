@@ -40,3 +40,5 @@
 1. 实现淘宝精品饰品效果，左侧是菜单，右侧是对应菜单内容，根据选择左侧不同菜单有相应内容切换
    
    **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/1/index.html)**
+   
+   ![2022/03/15/22a990315062106.png](https://i.iluoli.moe/2022/03/15/22a990315062106.png)
