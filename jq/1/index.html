@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>第一次实验</title>		
+		<style type="text/css">
+			* {margin: 0;padding: 0}ul {list-style: none;}a {text-decoration: none;}		    
+      .wrapper {width: 600px;height: 305px;margin: 50px auto 0;border: 1px solid pink;overflow: hidden;}
+      #left {width: 10%;float: left;}
+      #right {width: 90%;float: left;}
+      #left li a {display: block;width: 100%;height: 30px;border-bottom: 1px solid pink;line-height: 30px;text-align: center;color: black;}		    
+      #right li img {height: 100%;width: 100%;}
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+		  <ul id="left"></ul>
+		  <ul id="right"></ul>
+		</div>   
+	</body>
+  <script src="js/jquery-3.6.0.min.js"></script>
+		<script>
+      $(function(){
+        for (let i = 1; i < 9; i++) {
+          let $li = $('<li>');let $a = $('<a>').text(`图片${i}`).attr('href','#');
+          $('#left').append($li.append($a));
+          let $li2 = $('<li>');let $img = $('<img>').attr('src', `img/${i}.webp`);
+          $('#right').append($li2.append($img));
+        }
+        $("#left li").mouseover(function(){   
+          $("#right li").eq($(this).index()).show().siblings().hide();
+        }).hover(function(){
+            $(this).css('background','#F00');
+          },function(){
+            $(this).css('background','white')
+          });
+      }) 	
+		</script>
+</html>
