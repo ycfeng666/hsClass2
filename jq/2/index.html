@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>第二次实验</title>
+  <style>
+    .app {
+      width: 400px;
+      border: 1px solid #AAAAAA;
+      margin: 50px auto;
+    }
+
+    .zi {
+      height: 3px;
+      background: #9100ff;
+    }
+
+    .box {
+      padding: 0 2px 10px 2px;
+      text-align: center;
+    }
+
+    .title {
+      height: 35px;
+      line-height: 35px;
+      font-weight: bold;
+    }
+
+    .inner {
+      height: 45px;
+      overflow: hidden;
+    }
+
+    .inner ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .inner ul li {
+      height: 45px;
+      line-height: 45px;
+      font-size: 14px;
+    }
+
+    .inner ul li a {
+      display: block;
+      text-decoration: none;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="zi"></div>
+    <div class="box">
+      <div class="title" id="title">今日新闻-?年?月?日</div>
+      <div class="inner">
+        <ul class="news" id="news"></ul>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="js/jquery-3.6.0.min.js"></script>
+<script>
+  $(function () {
+    let time = new Date();
+    const newList = [
+      "俄副总理：一年之内可实现图-214客机完全自主生产",
+      "美国五角大楼：向乌克兰提供的价值8亿美元的武器已启运",
+      "国家知识产权局驳回涉冬奥会、冬残奥会1270件商标注册",
+      "东航客机坠毁，这些信息需要澄清",
+      "全国妇联追授白晓卉全国三八红旗手称号"
+    ];
+    $("#title").text("今日新闻-" + time.toLocaleDateString());
+    for (let i = 0, j = newList.length; i < j; i++) {
+      let $li = $('<li>'), $a = $('<a>').text(newList[i]).attr('href', '#');
+      $('#news').append($li.append($a));
+    }
+    let timer = setInterval(function () {
+      $("#news").animate({
+        marginTop: "-45px"
+      }, 500, function () {
+        $(this).css({
+          marginTop: "0px"
+        }).find("li:first").appendTo(this);
+      })
+    }, 2000);
+  })
+</script>
+
+</html>
