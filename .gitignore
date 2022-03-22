@@ -43,4 +43,5 @@ java/Servers/
 # 排除指定文件
 Global.asax.cs
 Global.asax
+jquery-3.6.0.min.js
 
