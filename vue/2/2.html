@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>简易计算器</title>
+  <style>
+    input {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+      line-height: 100px;
+      text-align: center;
+      border-radius: 10px;
+      outline: none;
+      font-weight: bold;
+    }
+
+    input[type="button"] {
+      cursor: pointer;
+    }
+
+    .big {
+      width: 200px
+    }
+
+    table {
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="box">
+    <table>
+      <tr>
+        <td><input type="button" value="清空" @click="clean"></td>
+        <td><input type="button" value="Del" @click="del"></td>
+        <td colspan="2"><input class="big" readonly="readonly" v-model="rel"></td>
+      </tr>
+      <tr v-for="(item,index) in tr" :key="index">
+        <td v-for="(item2,index2) in item" :key="index2">
+          <input type="button" :value="item2" @click="add(item2)">
+        </td>
+        <td><input v-if="index === 3" type="button" value="=" @click="result"></td>
+      </tr>
+    </table>
+  </div>
+
+</body>
+<script src="vue.min.js"></script>
+<script>
+  var vm = new Vue({
+    el: "#box",
+    data: {
+      rel: "",
+      tr: [[7, 8, 9, '/'], [4, 5, 6, '*'], [1, 2, 3, '-'], [0, '.', '+']],
+    },
+    methods: {
+      add (val) {
+        this.rel += val;
+      },
+      result () {
+        const str = this.rel;
+        this.rel = String((eval(str)).toFixed(2));
+      },
+      del () {
+        const str = this.rel;
+        if (!str || str != 0) this.rel = str.substr(0, str.length - 1);
+      },
+      clean () {
+        this.rel = "";
+      }
+    }
+  })
+</script>
+
+</html>

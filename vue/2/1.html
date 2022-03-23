@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>比较大小</title>
+  <style>
+    .compare {
+      margin: 0 auto;
+      width: 500px;
+    }
+
+    .compare p:last-child {
+      font-size: 24px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div class="compare">
+      <p>数据1：<input type="text" v-model="num1"></p>
+      <p>数据2：<input type="text" v-model="num2"></p>
+      <p><input type="button" value="比较" @click="compare"></p>
+      <p>{{result}}</p>
+    </div>
+  </div>
+</body>
+<script src="vue.min.js"></script>
+<script>
+  var vm = new Vue({
+    el: '#app',
+    data: {
+      num1: '',
+      num2: '',
+      result: '',
+    },
+    methods: {
+      compare () {
+        let num1F = parseFloat(this.num1),
+          num2F = parseFloat(this.num2);
+        if (!num1F || !num2F || !Number.isFinite(num1F) || !Number.isFinite(num2F)) this.result = '输入的数为空或非数字';
+        else this.result = num1F === num2F ? '两个数相等' : num1F > num2F ? num1F : num2F;
+      }
+    }
+  })
+</script>
+
+</html>
