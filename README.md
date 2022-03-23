@@ -157,4 +157,12 @@
 #### 实验内容
 
 1. 请使用插槽vm.$slots动手实现一个导航栏结构。要求：在子组件中实现导航栏的布局，调用组件时传递导航栏的内容
+   
+   **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/3/1.html)**
+   
+   ![2022/03/23/ffdef0323040641.png](https://i.iluoli.moe/2022/03/23/ffdef0323040641.png)
 2. 请创建一个自定义插件，实现一个登录页面。要求：在VUE实例中引入自定义插件，插件中实现登陆页面的布局。时间充裕可以再添加登录逻辑
+   
+   **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/3/1.html)**
+   
+   ![2022/03/23/3996c0323040641.png](https://i.iluoli.moe/2022/03/23/3996c0323040641.png)
