@@ -44,4 +44,5 @@ java/Servers/
 Global.asax.cs
 Global.asax
 jquery-3.6.0.min.js
+vue.min.js
 
