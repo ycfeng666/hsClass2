@@ -50,6 +50,10 @@
       height: 100%;
       width: 100%;
     }
+
+    .red {
+      background-color: red;
+    }
   </style>
 </head>
 
@@ -63,17 +67,17 @@
 <script>
   $(function () {
     for (let i = 1; i < 9; i++) {
-      let $li = $('<li>'); let $a = $('<a>').text(`图片${i}`).attr('href', '#');
+      let $li = $('<li>'), $a = $('<a>').text(`图片${i}`).attr('href', '#');
       $('#left').append($li.append($a));
-      let $li2 = $('<li>'); let $img = $('<img>').attr('src', `img/${i}.webp`);
+      let $li2 = $('<li>'), $img = $('<img>').attr('src', `../1/img/${i}.webp`);
       $('#right').append($li2.append($img));
     }
-    $("#left li").mouseover(function () {
+    $("#left li").hover(function () {
       $("#right li").eq($(this).index()).show().siblings().hide();
-    }).hover(function () {
-      $(this).css('background', '#F00');
+      $(this).addClass("red")
+      Index = $(this).index();
     }, function () {
-      $(this).css('background', 'white')
+      $(this).removeClass("red");
     });
   }) 	
 </script>
