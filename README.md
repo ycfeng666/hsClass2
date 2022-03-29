@@ -98,6 +98,30 @@
 
 <br/>
 
+### 第三次实验
+
+2022年3月29日
+
+#### 实验目的
+
+1. 掌握jQuery管理HTML元素
+2. 掌握jQuery删除HTML元素
+3. 掌握jQuery替换HTML元素
+
+#### 实验内容
+
+1. 实现如下图效果手风琴菜单
+   
+   ![2022/03/29/e7cd90329012931.png](https://i.iluoli.moe/2022/03/29/e7cd90329012931.png)
+![2022/03/29/df2f50329012931.png](https://i.iluoli.moe/2022/03/29/df2f50329012931.png)
+   
+      **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/3/index.html)**
+2. 自动播放淘宝精品饰品效果-基于第一次实验
+   
+      **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/3/index2.html)**
+
+<br/>
+
 ## Vue
 
 ### 第一次实验
