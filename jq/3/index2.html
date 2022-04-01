@@ -1,89 +1,99 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<title>第三次实验</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
 
-<head>
-  <title>第三次实验</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0
-    }
+			ul {
+				list-style: none;
+			}
 
-    ul {
-      list-style: none;
-    }
+			a {
+				text-decoration: none;
+			}
 
-    a {
-      text-decoration: none;
-    }
+			.wrapper {
+				width: 600px;
+				height: 305px;
+				margin: 50px auto 0;
+				border: 1px solid pink;
+				overflow: hidden;
+			}
 
-    .wrapper {
-      width: 600px;
-      height: 305px;
-      margin: 50px auto 0;
-      border: 1px solid pink;
-      overflow: hidden;
-    }
+			#left {
+				width: 10%;
+				float: left;
+			}
 
-    #left {
-      width: 10%;
-      float: left;
-    }
+			#right {
+				width: 90%;
+				float: left;
+			}
 
-    #right {
-      width: 90%;
-      float: left;
-    }
+			#left li a {
+				display: block;
+				width: 100%;
+				height: 30px;
+				border-bottom: 1px solid pink;
+				line-height: 30px;
+				text-align: center;
+				color: black;
+			}
 
-    #left li a {
-      display: block;
-      width: 100%;
-      height: 30px;
-      border-bottom: 1px solid pink;
-      line-height: 30px;
-      text-align: center;
-      color: black;
-    }
+			#right li img {
+				height: 100%;
+				width: 100%;
+			}
 
-    #right li img {
-      height: 100%;
-      width: 100%;
-    }
+			.red {
+				background-color: red;
+			}
+		</style>
+	</head>
 
-    .red {
-      background-color: red;
-    }
-  </style>
-</head>
-
-<body>
-  <div class="wrapper">
-    <ul id="left"></ul>
-    <ul id="right"></ul>
-  </div>
-</body>
-<script src="../1/js/jquery-3.6.0.min.js"></script>
-<script>
-  let Index = 0, Num = 9;
-  $(function () {
-    for (let i = 1; i < Num; i++) {
-      let $li = $('<li>'), $a = $('<a>').text(`图片${i}`).attr('href', '#');
-      $('#left').append($li.append($a));
-      let $li2 = $('<li>'), $img = $('<img>').attr('src', `../1/img/${i}.webp`);
-      $('#right').append($li2.append($img));
-    }
-    $("#left li").hover(function () {
-      $("#right li").eq($(this).index()).show().siblings().hide();
-      $(this).addClass("red"); Index = $(this).index();
-    }, function () {
-      $(this).removeClass("red");
-    });
-    setInterval(() => {
-      $("#left").find("li").eq(Index).trigger("mouseenter").siblings().removeClass('red');
-      if (Index < Num) Index++;
-      else Index = 0;
-    }, 1000);
-  })
-</script>
-
+	<body>
+		<div class="wrapper">
+			<ul id="left"></ul>
+			<ul id="right"></ul>
+		</div>
+	</body>
+	<script src="../1/js/jquery-3.6.0.min.js"></script>
+	<script>
+		let Index = 0,
+			Num = 9;
+		$(function () {
+			for (let i = 1; i < Num; i++) {
+				let $li = $('<li>'),
+					$a = $('<a>').text(`图片${i}`).attr('href', '#');
+				$('#left').append($li.append($a));
+				let $li2 = $('<li>'),
+					$img = $('<img>').attr('src', `../1/img/${i}.webp`);
+				$('#right').append($li2.append($img));
+			}
+			$('#left li').hover(
+				function () {
+					$('#right li').eq($(this).index()).show().siblings().hide();
+					$(this).addClass('red');
+					Index = $(this).index();
+				},
+				function () {
+					$(this).removeClass('red');
+				}
+			);
+			setInterval(() => {
+				$('#left')
+					.find('li')
+					.eq(Index)
+					.trigger('mouseenter')
+					.siblings()
+					.removeClass('red');
+				if (Index < Num) Index++;
+				else Index = 0;
+			}, 1000);
+		});
+	</script>
 </html>

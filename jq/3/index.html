@@ -1,70 +1,81 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<title>第三次实验</title>
+		<style>
+			.box {
+				margin-left: 20px;
+				border: 1px solid #888;
+				width: 200px;
+			}
 
-<head>
-  <title>第三次实验</title>
-  <style>
-    .box {
-      margin-left: 20px;
-      border: 1px solid #888;
-      width: 200px;
-    }
+			.box .item {
+				list-style: none;
+				width: 100%;
+				text-align: center;
+				height: 30px;
+				line-height: 30px;
+			}
 
-    .box .item {
-      list-style: none;
-      width: 100%;
-      text-align: center;
-      height: 30px;
-      line-height: 30px;
-    }
+			.box ul {
+				padding: 0;
+				margin: 0;
+			}
 
-    .box ul {
-      padding: 0;
-      margin: 0;
-    }
+			.box .item a {
+				text-decoration: none;
+				cursor: pointer;
+			}
 
-    .box .item a {
-      text-decoration: none;
-      cursor: pointer;
-    }
+			.box .first {
+				background-color: black;
+				color: white;
+				border: 1px solid white;
+			}
+		</style>
+	</head>
 
-    .box .first {
-      background-color: black;
-      color: white;
-      border: 1px solid white;
-    }
-  </style>
-</head>
-
-
-<body>
-  <div class="box"></div>
-
-</body>
-<script src="../1/js/jquery-3.6.0.min.js"></script>
-<script>
-  const menuList = [
-    ["选择器", "基本选择器", "层级选择器", "过滤选择器", "属性选择器", "内容选择器"],
-    ["筛选", "111"], ["样式", "222"], ["属性", "333"]
-  ]
-  $(function () {
-    const ul = $("<ul>");
-    menuList.forEach((item, index) => {
-      item.forEach((item2, index2) => {
-        const element = $("<li>").addClass("item"), a = $("<a>").text(item2);
-        if (index2 === 0) {
-          let click_num = 0; element.addClass("first");
-          element.click(() => {
-            if (click_num % 2 === 0) { $(".sec-" + index).show(); click_num++; }
-            else { $(".sec-" + index).hide(); click_num--; }
-          })
-        }
-        else element.addClass("sec-" + index).hide();
-        ul.append(element.append(a));
-      })
-    })
-    $(".box").append(ul);
-  })
-</script>
-
+	<body>
+		<div class="box"></div>
+	</body>
+	<script src="../1/js/jquery-3.6.0.min.js"></script>
+	<script>
+		const menuList = [
+			[
+				'选择器',
+				'基本选择器',
+				'层级选择器',
+				'过滤选择器',
+				'属性选择器',
+				'内容选择器',
+			],
+			['筛选', '111'],
+			['样式', '222'],
+			['属性', '333'],
+		];
+		$(function () {
+			const ul = $('<ul>');
+			menuList.forEach((item, index) => {
+				item.forEach((item2, index2) => {
+					const element = $('<li>').addClass('item'),
+						a = $('<a>').text(item2);
+					if (index2 === 0) {
+						let click_num = 0;
+						element.addClass('first');
+						element.click(() => {
+							if (click_num % 2 === 0) {
+								$('.sec-' + index).show();
+								click_num++;
+							} else {
+								$('.sec-' + index).hide();
+								click_num--;
+							}
+						});
+					} else element.addClass('sec-' + index).hide();
+					ul.append(element.append(a));
+				});
+			});
+			$('.box').append(ul);
+		});
+	</script>
 </html>

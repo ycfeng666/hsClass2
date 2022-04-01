@@ -1,66 +1,67 @@
 <!DOCTYPE html>
 <html lang="zh">
+	<head>
+		<title>第三次实验</title>
+		<style>
+			.box {
+				margin: 0 auto;
+				width: 500px;
+			}
 
-<head>
-  <meta scheme="UTF-8">
-  <title></title>
-  <style>
-    .box {
-      margin: 0 auto;
-      width: 500px;
-    }
+			.box p:last-child {
+				font-size: 24px;
+				font-weight: bold;
+			}
+		</style>
+	</head>
 
-    .box p:last-child {
-      font-size: 24px;
-      font-weight: bold;
-    }
-  </style>
-</head>
+	<body>
+		<div id="app">
+			<login_box></login_box>
+		</div>
+		<template id="login_box">
+			<div class="box">
+				<p>用户：<input type="text" v-model="admin" /></p>
+				<p>
+					密码：<input
+						type="password"
+						v-model="password"
+						@keyup.enter="login"
+					/>
+				</p>
+				<p><button @click="login">登录</button></p>
+				<p>{{msg}}</p>
+			</div>
+		</template>
+	</body>
+	<script src="../2/vue.min.js"></script>
+	<script>
+		let plugin = {};
+		plugin.install = function (Vue) {
+			Vue.prototype.ToLogin = function (user, pass) {
+				if (user === 'admin' && pass == '123456') return '登录成功';
+				return '登录失败,账号密码错误！';
+			};
+		};
+		Vue.use(plugin);
+		Vue.component('login_box', {
+			template: '#login_box',
+			data() {
+				return {
+					admin: '',
+					password: '',
+					msg: '',
+				};
+			},
+			methods: {
+				login() {
+					this.msg = this.ToLogin(this.admin, this.password);
+				},
+			},
+		});
 
-<body>
-  <div id="app">
-    <login_box></login_box>
-  </div>
-  <template id="login_box">
-    <div class="box">
-      <p>用户：<input type="text" v-model='admin'></p>
-      <p>密码：<input type="password" v-model='password' @keyup.enter="login"></p>
-      <p><button @click='login'>登录 </button></p>
-      <p>{{msg}}</p>
-    </div>
-  </template>
-
-</body>
-<script src="vue.min.js"></script>
-<script>
-  let plugin = {}
-  plugin.install = function (Vue) {
-    Vue.prototype.ToLogin = function (user, pass) {
-      if (user === "admin" && pass == "123456") return "登录成功";
-      return "登录失败,账号密码错误！";
-    }
-  }
-  Vue.use(plugin)
-  Vue.component('login_box', {
-    template: '#login_box',
-    data () {
-      return {
-        admin: '',
-        password: '',
-        msg: ''
-      }
-    },
-    methods: {
-      login () {
-        this.msg = this.ToLogin(this.admin, this.password)
-      }
-    }
-
-  })
-
-  var vm = new Vue({
-    el: '#app',
-  })
-</script>
-
+		var vm = new Vue({
+			el: '#app',
+		});
+	</script>
 </html>

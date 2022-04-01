@@ -1,75 +1,69 @@
 <!DOCTYPE html>
 <html lang="zh">
+	<head>
+		<title>第三次实验</title>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title></title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+			}
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-    }
+			.c-nav {
+				height: 70px;
+				line-height: 70px;
+				border: 0.06em solid #e3e3e3;
+				box-shadow: 0 4px 12px -6px #c4c4c4;
+			}
 
-    .c-nav {
-      height: 70px;
-      line-height: 70px;
-      border: .06em solid #e3e3e3;
-      box-shadow: 0 4px 12px -6px #c4c4c4;
-    }
+			.c-nav li {
+				float: left;
+				width: 80px;
+				text-align: center;
+				list-style: none;
+			}
 
-    .c-nav li {
-      float: left;
-      width: 80px;
-      text-align: center;
-      list-style: none;
-    }
+			.c-nav li a {
+				display: inline-block;
+				text-decoration: none;
+				color: #000;
+			}
+		</style>
+	</head>
 
-    .c-nav li a {
-      display: inline-block;
-      text-decoration: none;
-      color: #000;
-    }
-  </style>
-</head>
-
-<body>
-  <div id="app">
-    <nav-header>
-      <template v-slot:header>
-        <div id="c_nav" class="c-nav">
-          <span class="cloud"></span>
-          <ul ref='nav'>
-            <li v-for="item,key in list" @click="click(item)">
-              <a href="#">{{item}}</a>
-            </li>
-          </ul>
-        </div>
-      </template>
-    </nav-header>
-  </div>
-
-</body>
-<script src="vue.min.js"></script>
-<script>
-  Vue.component('nav-header', {
-    render (createElement) {
-      return createElement('header', this.$slots.header)
-    }
-  })
-  var vm = new Vue({
-    el: '#app',
-    data: {
-      list: ['服务', '案例', '新闻', '观察', '关于']
-    },
-    methods: {
-      click (key) {
-        alert(key)
-      },
-    }
-  })
-</script>
-
+	<body>
+		<div id="app">
+			<nav-header>
+				<template v-slot:header>
+					<div id="c_nav" class="c-nav">
+						<span class="cloud"></span>
+						<ul ref="nav">
+							<li v-for="item,key in list" @click="click(item)">
+								<a href="#">{{item}}</a>
+							</li>
+						</ul>
+					</div>
+				</template>
+			</nav-header>
+		</div>
+	</body>
+	<script src="vue.min.js"></script>
+	<script>
+		Vue.component('nav-header', {
+			render(createElement) {
+				return createElement('header', this.$slots.header);
+			},
+		});
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				list: ['服务', '案例', '新闻', '观察', '关于'],
+			},
+			methods: {
+				click(key) {
+					alert(key);
+				},
+			},
+		});
+	</script>
 </html>
