@@ -23,6 +23,12 @@
 *.jar
 *.class
 *.user
+*.map
+*.zip
+*.rar
+*.7z
+*.docx
+*.png
 
 # 忽略通配符目录
 *.vs*/
@@ -45,4 +51,7 @@ Global.asax.cs
 Global.asax
 jquery-3.6.0.min.js
 vue.min.js
+animate.css@3.5.1.css
+bootstrap.min.css
+vue.global.prod.js
 
