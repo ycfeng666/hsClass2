@@ -1,0 +1,116 @@
+<html>
+	<head>
+		<title>第四次实验</title>
+		<link rel="stylesheet" href="animate.css@3.5.1.css" />
+		<style>
+			#app {
+				width: 400px;
+				margin: 60px auto;
+			}
+			.title {
+				height: 50px;
+				border-bottom: 1px solid #e1e7ec;
+				text-align: center;
+			}
+			#app a {
+				text-decoration: none;
+				color: black;
+				font-size: 16px;
+				background: #f1f1f1;
+				padding: 5px 10px;
+				margin: 0 10px;
+				border-radius: 5px;
+			}
+			.form-input {
+				height: 46px;
+				line-height: 46px;
+				margin-top: 10px;
+			}
+			input {
+				box-sizing: border-box;
+				padding: 0 25px;
+				background: #eef3f5;
+				border-radius: 8px;
+				width: 100%;
+				height: 100%;
+				border: 0;
+				outline: 0;
+				font-size: 14px;
+			}
+			.primary-button {
+				background: linear-gradient(325deg, #4aa4ff, #1058fa);
+				width: 100%;
+				height: 42px;
+				border-radius: 23px;
+				border: 0;
+				outline: none;
+				color: #fff;
+				letter-spacing: 10px;
+				font-weight: 500;
+				font-size: 16px;
+				cursor: pointer;
+				margin-top: 30px;
+			}
+			.pic {
+				width: 200px;
+				height: 200px;
+				margin: 0 auto;
+			}
+			.pic img {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+	</head>
+	<body>
+		<template id="tab1">
+			<div class="form-input">
+				<input placeholder="请输入账号" class="form-input" />
+			</div>
+			<div class="form-input">
+				<input type="password" placeholder="请输入密码" class="form-input" />
+			</div>
+			<button type="button" class="primary-button">登录</button>
+		</template>
+		<template id="tab2">
+			<div class="pic">
+				<img src="01.PNG" />
+			</div>
+		</template>
+		<div id="app">
+			<div class="title">
+				<a href="javascript:;" @click="changeTab(1)">账号登录</a>
+				<a href="javascript:;" @click="changeTab(2)">二维码登录</a>
+			</div>
+			<transition enter-active-class="animated bounceInDown">
+				<component :is="Name"></component>
+			</transition>
+		</div>
+	</body>
+	<script src="vue.global.prod.js"></script>
+	<script>
+		const { createApp, reactive, toRefs } = Vue,
+			data = reactive({
+				Name: 'login-input',
+			}),
+			tab1 = { template: '#tab1' },
+			tab2 = { template: '#tab2' },
+			app = createApp({
+				components: {
+					'login-input': tab1,
+					'login-erweima': tab2,
+				},
+				setup() {
+					const changeTab = (type) => {
+						if (type === 1) data.Name = 'login-input';
+						else data.Name = 'login-erweima';
+					};
+					return {
+						changeTab,
+						...toRefs(data),
+					};
+				},
+			});
+		app.mount('#app');
+	</script>
+</html>

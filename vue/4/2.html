@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh">
+	<head>
+		<title>第四次实验</title>
+
+		<style>
+			.chart {
+				width: 200px;
+				height: 200px;
+				background-color: red;
+			}
+			.box-enter-active,
+			.box-leave-active {
+				transition: width 3s;
+			}
+			.box-enter,
+			.box-leave-to {
+				width: 0px;
+			}
+			.box-enter-to,
+			.box-leave {
+				width: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="toggle">盒子</button>
+			<transition name="box">
+				<div class="chart" v-if="show"></div>
+			</transition>
+		</div>
+	</body>
+	<script src="vue.global.prod.js"></script>
+	<script>
+		const { createApp, reactive, toRefs } = Vue,
+			data = reactive({
+				show: true,
+			}),
+			app = createApp({
+				setup() {
+					const toggle = () => {
+						data.show = !data.show;
+					};
+					return {
+						toggle,
+						...toRefs(data),
+					};
+				},
+			});
+		app.mount('#app');
+	</script>
+</html>
