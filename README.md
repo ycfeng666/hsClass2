@@ -255,4 +255,4 @@
 
    **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/5/index.html)**
 
-   ![](https://i.iluoli.moe/2022/04/07/7ce2c0407042952.png)![](https://i.iluoli.moe/2022/04/07/7ce2c0407042952.png))
+   ![](https://i.iluoli.moe/2022/04/07/7ce2c0407042952.png)
