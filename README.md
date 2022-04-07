@@ -236,3 +236,23 @@
    **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/4/2.html)**
 
    ![](https://i.iluoli.moe/2022/04/01/784420401011340.png)
+
+<br/>
+
+### 第五次实验
+
+2022 年 4 月 7 日
+
+#### 实验目的
+
+1. 熟悉 transition 组件的使用，以及内置的 CSS 类名、自定义类名、animate.css 实现过渡动画的方法
+2. 掌握使用多个组件过渡和列表过渡的方法
+
+#### 实验内容
+
+1. 利用 transition-group 组件实现电子商城中广告图片的轮播效果。运行程序，要求实现： （1）页面中显示的广告图片会进行轮播
+2. 鼠标指向图片下方的某个数字按钮时会过渡显示对应的图片
+
+   **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/5/index.html)**
+
+   ![](https://i.iluoli.moe/2022/04/07/7ce2c0407042952.png)![](https://i.iluoli.moe/2022/04/07/7ce2c0407042952.png))

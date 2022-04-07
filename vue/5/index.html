@@ -1,0 +1,135 @@
+<head>
+	<style>
+		:root {
+			--w500: 500px;
+			--w300: 300px;
+			--w100: 100px;
+			--w25: 25px;
+		}
+		#app {
+			width: var(--w500);
+			margin: var(--w100) auto;
+		}
+		li {
+			list-style: none;
+		}
+		.group {
+			overflow: hidden;
+			height: var(--w300);
+			margin: 0;
+			padding: 0;
+			position: relative;
+		}
+		.group img {
+			width: 100%;
+			height: 100%;
+		}
+		.list-enter-active,
+		.list-leave-active {
+			transition: all 1s ease;
+		}
+		.list-enter-from,
+		.list-leave-to {
+			opacity: 0;
+			transform: translateX(calc(var(--w25) * -1));
+		}
+		.btnList {
+			margin-top: var(--w25);
+		}
+		.btnList button:not(:first-child) {
+			margin-left: var(--w25);
+		}
+		.numList {
+			margin-top: var(--w25);
+		}
+		.numList div {
+			display: inline-block;
+			background-color: #888;
+			width: var(--w25);
+			height: var(--w25);
+			line-height: var(--w25);
+			text-align: center;
+			color: white;
+			cursor: pointer;
+		}
+		.numList div:not(:first-child) {
+			margin-left: var(--w25);
+		}
+		.isClick {
+			background-color: red !important;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<transition-group tag="ul" class="group" name="list">
+			<li
+				v-for="i in imgIndex"
+				:key="i"
+				class="group_item"
+				v-show="NowIndex === i"
+			>
+				<img :src="'../../jq/1/img/' + i + '.webp'" />
+			</li>
+		</transition-group>
+		<div class="btnList">
+			<button @click="prev">上一张</button>
+			<button @click="next">下一张</button>
+		</div>
+		<div class="numList">
+			<div
+				v-for="i in imgIndex"
+				:key="i"
+				class="num"
+				@click="changePet(i)"
+				:class="{'isClick':NowIndex === i}"
+			>
+				{{i}}
+			</div>
+		</div>
+	</div>
+</body>
+<script src="../4/vue.global.prod.js"></script>
+<script>
+	const { createApp, reactive, toRefs, onMounted } = Vue,
+		data = reactive({
+			imgIndex: 8,
+			NowIndex: 1,
+			timer: null,
+		}),
+		app = createApp({
+			setup() {
+				const prev = () => {
+						if (data.NowIndex === 1) data.NowIndex = data.imgIndex;
+						else data.NowIndex--;
+					},
+					next = () => {
+						if (data.NowIndex === data.imgIndex) data.NowIndex = 1;
+						else data.NowIndex++;
+					},
+					setTimer = () => {
+						data.timer = setInterval(() => {
+							next();
+						}, 3000);
+					},
+					reSetTimer = () => {
+						clearInterval(data.timer);
+						setTimer();
+					},
+					changePet = (key) => {
+						reSetTimer();
+						data.NowIndex = key;
+					};
+				onMounted(() => {
+					setTimer();
+				});
+				return {
+					prev,
+					next,
+					changePet,
+					...toRefs(data),
+				};
+			},
+		});
+	app.mount('#app');
+</script>
