@@ -62,7 +62,7 @@
 			<ul id="right"></ul>
 		</div>
 	</body>
-	<script src="js/jquery-3.6.0.min.js"></script>
+	<script src="../../libs/js/jquery-3.6.0.min.js"></script>
 	<script>
 		$(function () {
 			for (let i = 1; i < 9; i++) {
@@ -70,7 +70,7 @@
 					$a = $('<a>').text(`图片${i}`).attr('href', '#');
 				$('#left').append($li.append($a));
 				let $li2 = $('<li>'),
-					$img = $('<img>').attr('src', `../1/img/${i}.webp`);
+					$img = $('<img>').attr('src', `../../libs/img/${i}.webp`);
 				$('#right').append($li2.append($img));
 			}
 			$('#left li').hover(
