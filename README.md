@@ -256,3 +256,22 @@
    **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/5/index.html)**
 
    ![](https://i.iluoli.moe/2022/04/07/7ce2c0407042952.png)
+
+<br/>
+
+### 第六次实验
+
+2022 年 4 月 14 日
+
+#### 实验目的
+
+待定
+
+#### 实验内容
+
+1. 创建一个 components/Message.vue 组件用来展示内容
+2. 创建 3 个子路由，分别是“代付款”，”待发货“，”待收货“，在每个子路由单独写出相应内容
+
+   **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/6/index.html)**
+
+   ![](https://i.iluoli.moe/2022/04/08/ae9370408112700.png)

@@ -1,0 +1,96 @@
+<head>
+	<style>
+		#app {
+			width: 500px;
+			margin: 50px auto;
+			border: 1px solid #888;
+			text-align: center;
+		}
+		.tabs {
+			border-bottom: 1px solid #888;
+			height: 50px;
+			line-height: 50px;
+		}
+		.tabs .tab {
+			width: 33%;
+			float: left;
+			font-weight: bold;
+			cursor: pointer;
+		}
+		.tabs .tab:not(:first-child):not(:last-child) {
+			border-left: 1px solid #888;
+			border-right: 1px solid #888;
+		}
+		.main {
+			height: 200px;
+			line-height: 200px;
+			font-size: 18px;
+		}
+		.click {
+			background-color: #0d6efd;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="tabs">
+			<router-link
+				v-for="item,index in tabList"
+				:key="index"
+				:to="item.url"
+				v-slot="{navigate,isExactActive}"
+				custom
+			>
+				<div class="tab" @click="navigate" :class="{'click':isExactActive}">
+					{{item.label}}
+				</div>
+			</router-link>
+		</div>
+		<div class="main">
+			<router-view></router-view>
+		</div>
+	</div>
+</body>
+<!-- 请引入vue3.1以上版本 -->
+<script src="../../libs/js/vue3.min.js"></script>
+<!-- 请引入vue-router4.x版本 -->
+<script src="../../libs/js/vue-router.min.js"></script>
+<script>
+	const { createApp, reactive, toRefs, onMounted } = Vue,
+		{ createRouter, createWebHashHistory } = VueRouter,
+		data = reactive({
+			NowIndex: 0,
+			tabList: [
+				{ label: '待付款', url: '/' },
+				{ label: '待发货', url: '/fh' },
+				{ label: '待收货', url: '/sh' },
+			],
+		}),
+		routes = [
+			{
+				path: '/:name*',
+				component: { template: '待付款商品信息' },
+			},
+			{
+				path: '/fh/:name*',
+				component: { template: '待发货商品信息' },
+			},
+			{
+				path: '/sh/:name*',
+				component: { template: '待收获商品信息' },
+			},
+		],
+		router = createRouter({
+			history: createWebHashHistory(),
+			routes,
+		}),
+		app = createApp({
+			setup() {
+				return {
+					...toRefs(data),
+				};
+			},
+		});
+	app.use(router);
+	app.mount('#app');
+</script>
