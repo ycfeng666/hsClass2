@@ -42,6 +42,7 @@
 *.metadata*/
 *WEB-INF*/
 *packages*/
+*libs*/
 
 # 排除目录
 java/Servers/
@@ -49,9 +50,4 @@ java/Servers/
 # 排除指定文件
 Global.asax.cs
 Global.asax
-jquery-3.6.0.min.js
-vue.min.js
-animate.css@3.5.1.css
-bootstrap.min.css
-vue.global.prod.js
 
