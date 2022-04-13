@@ -115,11 +115,9 @@
 
    ![2022/03/29/e7cd90329012931.png](https://i.iluoli.moe/2022/03/29/e7cd90329012931.png)
 
-![2022/03/29/df2f50329012931.png](https://i.iluoli.moe/2022/03/29/df2f50329012931.png)
+   ![2022/03/29/df2f50329012931.png](https://i.iluoli.moe/2022/03/29/df2f50329012931.png)
 
-```
    **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/3/index.html)**
-```
 
 2. 自动播放淘宝精品饰品效果-基于第一次实验
 
