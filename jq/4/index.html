@@ -1,57 +1,49 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>第三次实验</title>
-		<style>
-			.head {
-				height: 30px;
-				line-height: 30px;
-				border: 1px solid #888;
-			}
-
-			.head li {
-				list-style: none;
-				float: left;
-				width: 50px;
-				text-align: center;
-				cursor: pointer;
-			}
-
-			.main {
-				margin-top: 30px;
-			}
-
-			.click {
-				background-color: #888;
-			}
-		</style>
-	</head>
-
-	<body>
-		<div class="box">
-			<ul class="head"></ul>
-			<div class="main"></div>
-		</div>
-	</body>
-	<script src="../../libs/js/jquery-3.6.0.min.js"></script>
-	<script>
-		const List = [
-			{ menu: '菜单1', h2: '菜单1的H2', h4: '菜单1的H4' },
-			{ menu: '菜单2', h2: '菜单2的H2', h4: '菜单2的H4' },
-			{ menu: '菜单3', h2: '菜单3的H2', h4: '菜单3的H4' },
-		];
-		$(function () {
-			List.forEach((item, index) => {
-				const li = $('<li>').text(item.menu),
-					h2 = $('<h2>').text(item.h2),
-					h4 = $('<h4>').text(item.h4);
-				li.click(function () {
-					$(this).addClass('click').siblings().removeClass('click');
-					$('.main').empty().append(h2, h4);
-				});
-				$('.head').append(li);
-			});
-			$('.head').find('li').eq(0).trigger('click');
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<style>
+		#app {
+			margin: auto;
+			width: 80%;
+		}
+		.card {
+			height: 300px;
+			margin-top: 10px;
+		}
+		.top {
+			position: fixed;
+			right: 50px;
+			bottom: 100px;
+			width: 70px;
+			padding: 10px;
+			text-align: center;
+			border: 1px solid #888;
+			font-weight: bold;
+			cursor: pointer;
+			display: none;
+		}
+	</style>
+</head>
+<body>
+	<div id="app"></div>
+	<div class="top">返回顶部</div>
+</body>
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script>
+	let viewList = ['../1/index.html', '../2/index.html', '../z-001/index.html'];
+	$(function () {
+		for (let val of viewList) {
+			const div = $('<div>').addClass('card').load(val);
+			$('#app').append(div);
+		}
+		$(window).scroll(() => {
+			let scroH = $(document).scrollTop();
+			if (scroH >= 100) $('.top').show();
+			else $('.top').hide();
 		});
-	</script>
-</html>
+		$('.top').click(() => {
+			$('body').animate({
+				scrollTop: 0,
+			});
+		});
+	});
+</script>

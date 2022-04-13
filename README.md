@@ -118,7 +118,7 @@
 ![2022/03/29/df2f50329012931.png](https://i.iluoli.moe/2022/03/29/df2f50329012931.png)
 
 ```
-  **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/3/index.html)**
+   **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/3/index.html)**
 ```
 
 2. 自动播放淘宝精品饰品效果-基于第一次实验
@@ -129,15 +129,35 @@
 
 ### 第四次实验
 
-2022 年 4 月 5 日
+2022 年 4 月 12 日
 
 #### 实验目的
 
-1. 待更新
+1. 掌握 JQuery 常用方法
+2. 掌握 JQuery 获取滚动条卷入距离方法
+3. 掌握 JQuery 设置获取匹配对象的偏移量
 
 #### 实验内容
 
-1. 实验类似淘宝点击菜单切换下方内容（待定内容）
+1. 将前期实现页面整合成一个页面，要求要有滚动条，实现单击返回顶端效果（返回顶端初始为隐藏状态）
+
+   ![](https://i.iluoli.moe/2022/04/13/e5d6a0413062900.png)
+
+   **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/4/index.html)**
+
+<br/>
+
+### 第一次支线实验
+
+2022 年 3 月 30 日
+
+#### 实验目的
+
+1. 无目的
+
+#### 实验内容
+
+1. 实验类似淘宝点击菜单切换下方内容（见实验 4 演示图末尾部分）
 
    **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/jq/4/index.html)**
 
