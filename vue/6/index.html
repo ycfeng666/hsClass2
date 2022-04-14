@@ -1,21 +1,29 @@
 <head>
 	<style>
+		html,
+		body {
+			background-color: #58596b;
+		}
 		#app {
 			width: 500px;
 			margin: 50px auto;
 			border: 1px solid #888;
 			text-align: center;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 		}
 		.tabs {
 			border-bottom: 1px solid #888;
 			height: 50px;
 			line-height: 50px;
+			display: flex;
+			background-color: #33344a;
 		}
 		.tabs .tab {
-			width: 33%;
-			float: left;
 			font-weight: bold;
 			cursor: pointer;
+			flex: 1;
+			transition: 0.3s;
+			color: #717181;
 		}
 		.tabs .tab:not(:first-child):not(:last-child) {
 			border-left: 1px solid #888;
@@ -25,24 +33,32 @@
 			height: 200px;
 			line-height: 200px;
 			font-size: 18px;
+			background-color: #fff;
+			color: #999;
 		}
 		.click {
-			background-color: #0d6efd;
+			background-color: #e74c3c;
+			color: white !important;
 		}
 	</style>
 </head>
 <body>
 	<div id="app">
+		<!-- v-slot: 通过一个作用域插槽<router-link> - 暴露底层的定制能力。
+      这是一个更高阶的 API，主要面向库作者，但也可以为开发者提供便利，
+      多数情况用在一个类似 NavLink 这样的组件里 -->
 		<div class="tabs">
 			<router-link
-				v-for="item,index in tabList"
+				v-for="item,index in routes"
 				:key="index"
-				:to="item.url"
-				v-slot="{navigate,isExactActive}"
+				:to="item.meta.url"
+				v-slot="{navigate,isActive}"
 				custom
 			>
-				<div class="tab" @click="navigate" :class="{'click':isExactActive}">
-					{{item.label}}
+				<!-- navigate：触发导航的函数。会在必要时自动阻止事件，和 router-link 同理。 -->
+				<!-- isActive：如果需要应用激活的 class 则为 true。允许应用一个任意的 class。 -->
+				<div class="tab" @click="navigate" :class="{'click':isActive}">
+					{{item.meta.title}}
 				</div>
 			</router-link>
 		</div>
@@ -60,24 +76,34 @@
 		{ createRouter, createWebHashHistory } = VueRouter,
 		data = reactive({
 			NowIndex: 0,
-			tabList: [
-				{ label: '待付款', url: '/' },
-				{ label: '待发货', url: '/fh' },
-				{ label: '待收货', url: '/sh' },
-			],
 		}),
 		routes = [
 			{
 				path: '/:name*',
 				component: { template: '待付款商品信息' },
+				name: 'fh',
+				meta: {
+					title: '待发货',
+					url: '/',
+				},
 			},
 			{
-				path: '/fh/:name*',
+				path: '/fk/:name*',
 				component: { template: '待发货商品信息' },
+				name: 'fk',
+				meta: {
+					title: '待付款',
+					url: '/fk',
+				},
 			},
 			{
 				path: '/sh/:name*',
 				component: { template: '待收获商品信息' },
+				name: 'sh',
+				meta: {
+					title: '待收货',
+					url: '/sh',
+				},
 			},
 		],
 		router = createRouter({
@@ -87,10 +113,15 @@
 		app = createApp({
 			setup() {
 				return {
+					routes,
 					...toRefs(data),
 				};
 			},
 		});
+	// 你也可以注册全局后置钩子，然而和守卫不同的是，这些钩子不会接受 next 函数也不会改变导航本身：
+	router.afterEach((to, from) => {
+		document.title = to.meta.title;
+	});
 	app.use(router);
 	app.mount('#app');
 </script>
