@@ -1,9 +1,5 @@
 <head>
 	<style>
-		html,
-		body {
-			background-color: #58596b;
-		}
 		#app {
 			width: 500px;
 			margin: 50px auto;
@@ -11,21 +7,33 @@
 			text-align: center;
 			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 		}
-		.tabs {
+		#user_list {
+			height: 200px;
+		}
+		.list_body {
+			height: 100%;
+		}
+		.user {
+			height: 50px;
+			line-height: 50px;
+			background-color: #000;
+			color: white;
+		}
+		.menu {
 			border-bottom: 1px solid #888;
 			height: 50px;
 			line-height: 50px;
 			display: flex;
 			background-color: #33344a;
 		}
-		.tabs .tab {
+		.menu .tab {
 			font-weight: bold;
 			cursor: pointer;
 			flex: 1;
 			transition: 0.3s;
 			color: #717181;
 		}
-		.tabs .tab:not(:first-child):not(:last-child) {
+		.menu .tab:not(:first-child):not(:last-child) {
 			border-left: 1px solid #888;
 			border-right: 1px solid #888;
 		}
@@ -40,18 +48,23 @@
 			background-color: #e74c3c;
 			color: white !important;
 		}
+		.userSpan {
+			color: blue;
+			margin-left: 20px;
+			cursor: pointer;
+		}
 	</style>
 </head>
 <body>
 	<div id="app">
 		<!-- v-slot: 通过一个作用域插槽<router-link> - 暴露底层的定制能力。
-      这是一个更高阶的 API，主要面向库作者，但也可以为开发者提供便利，
-      多数情况用在一个类似 NavLink 这样的组件里 -->
-		<div class="tabs">
+		这是一个更高阶的 API，主要面向库作者，但也可以为开发者提供便利，
+		多数情况用在一个类似 NavLink 这样的组件里 -->
+		<div class="menu">
 			<router-link
 				v-for="item,index in routes"
 				:key="index"
-				:to="item.meta.url"
+				:to="index === 0 ? (item.meta.url) : ('/user-' + userID + item.meta.url)"
 				v-slot="{navigate,isActive}"
 				custom
 			>
@@ -63,7 +76,18 @@
 			</router-link>
 		</div>
 		<div class="main">
-			<router-view></router-view>
+			<div v-if="route.path === '/'">
+				<router-link
+					v-for="item,index in userList"
+					:key="index"
+					:to="'/user-' + item.uid + '/fk'"
+					v-slot="{navigate}"
+					custom
+				>
+					<a class="userSpan" @click="navigate">{{item.name}}</a>
+				</router-link>
+			</div>
+			<div v-else><router-view></router-view></div>
 		</div>
 	</div>
 </body>
@@ -72,34 +96,37 @@
 <!-- 请引入vue-router4.x版本 -->
 <script src="../../libs/js/vue-router.min.js"></script>
 <script>
-	const { createApp, reactive, toRefs, onMounted } = Vue,
-		{ createRouter, createWebHashHistory } = VueRouter,
-		data = reactive({
-			NowIndex: 0,
-		}),
+	const { createApp, reactive, toRefs, onMounted, getCurrentInstance, watch } =
+			Vue,
+		{ createRouter, createWebHashHistory, useRoute } = VueRouter,
 		routes = [
 			{
-				path: '/:name*',
-				component: { template: '待付款商品信息' },
-				name: 'fh',
+				path: '/',
+				component: { template: '' },
 				meta: {
-					title: '待发货',
+					title: '首页',
 					url: '/',
 				},
 			},
 			{
-				path: '/fk/:name*',
-				component: { template: '待发货商品信息' },
-				name: 'fk',
+				path: '/user-:uid/fk',
+				component: { template: '待付款' },
 				meta: {
 					title: '待付款',
 					url: '/fk',
 				},
 			},
 			{
-				path: '/sh/:name*',
-				component: { template: '待收获商品信息' },
-				name: 'sh',
+				path: '/user-:uid/fh',
+				component: { template: '待付款' },
+				meta: {
+					title: '待付款',
+					url: '/fh',
+				},
+			},
+			{
+				path: '/user-:uid/sh',
+				component: { template: '待收货' },
 				meta: {
 					title: '待收货',
 					url: '/sh',
@@ -112,7 +139,29 @@
 		}),
 		app = createApp({
 			setup() {
+				const { proxy } = getCurrentInstance(),
+					router = proxy.$router,
+					route = useRoute();
+				data = reactive({
+					userID: '',
+					NowIndex: 0,
+					userList: [
+						{ uid: 1, name: '张三' },
+						{ uid: 2, name: '李四' },
+						{ uid: 3, name: '王五' },
+					],
+				});
+				onMounted(() => {
+					data.userID = router.currentRoute.value.params.uid;
+				});
+				watch(
+					() => router.currentRoute.value,
+					(val) => {
+						data.userID = val.params.uid;
+					}
+				);
 				return {
+					route,
 					routes,
 					...toRefs(data),
 				};
@@ -123,5 +172,7 @@
 		document.title = to.meta.title;
 	});
 	app.use(router);
-	app.mount('#app');
+	// 所有的导航，包括第一个导航，现在都是异步的，这意味着，
+	// 如果你使用一个 transition，你可能需要等待路由 ready 好后再挂载程序
+	router.isReady().then(() => app.mount('#app'));
 </script>
