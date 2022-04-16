@@ -20,17 +20,27 @@
 		}
 		.textarea,
 		.input {
-			box-shadow: inset 0 1px 2px rgb(10 10 10 / 10%);
 			border: 1px solid #209cee;
 			width: 100%;
-			border-radius: 4px;
 			color: #363636;
 			height: 2.5rem;
+			padding-left: 5px;
+			outline-style: none;
+			font-family: 'Microsoft soft';
+		}
+		.input {
+			border: 0;
+			border-bottom: 3px solid #aaa;
 		}
 		.textarea {
 			min-height: 120px;
-			padding: 0.625em;
 			resize: vertical;
+			border-radius: 4px;
+		}
+		.textarea:focus,
+		.input:focus {
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),
+				0 0 8px rgba(102, 175, 233, 0.6);
 		}
 		.btn {
 			background-color: #1496ed;
@@ -42,14 +52,20 @@
 			border-bottom: 1px solid #eee;
 			padding-bottom: 5px;
 		}
+		.post_head > .post_delete {
+			float: right;
+			color: red;
+		}
 		.post_head > .post_name {
-			text-decoration: none;
 			color: #7a7a7a;
-			cursor: pointer;
-			font-weight: bold;
 		}
 		.post_body > .post_context {
 			padding: 5px 0;
+		}
+		a {
+			text-decoration: none;
+			font-weight: bold;
+			cursor: pointer;
 		}
 	</style>
 </head>
@@ -59,12 +75,16 @@
 		<hr />
 		<div class="post_list"></div>
 		<div class="box write_box">
-			<h4>发表留言</h4>
 			<div class="control">
-				<input type="text" class="input" placeholder="用户名" id="name" />
+				<input
+					type="text"
+					class="input"
+					placeholder="用户名"
+					id="name"
+					value="张三"
+				/>
 			</div>
 			<div class="control">
-				<b>正文</b>
 				<textarea
 					class="textarea"
 					placeholder="请输入内容"
@@ -79,18 +99,33 @@
 </body>
 <script src="../../libs/js/jquery-3.6.0.min.js"></script>
 <script>
-	$('#sub').click(() => {
+	let post_index = 0;
+	const BindFun = () => {
 		const name = $('#name').val(),
 			context = $('#context').val();
-		if (name !== '' && context !== '') {
+		if (name !== '') {
 			const box = $('<div>').addClass('box'),
 				post_head = $('<div>').addClass('post_head'),
 				post_name = $('<a>').addClass('post_name').text(name),
+				post_delete = $('<a>')
+					.addClass('post_delete')
+					.text('删除')
+					.attr('pid', post_index)
+					.click(function () {
+						$(this).parent().parent().remove();
+					}),
 				post_body = $('<div>').addClass('post_body'),
-				post_context = $('<div>').addClass('post_context').text(context);
+				post_context = $('<div>')
+					.addClass('post_context')
+					.text(context !== '' ? context : '用户没有输入');
 			$('.post_list').append(
-				box.append(post_head.append(post_name), post_body.append(post_context))
+				box.append(
+					post_head.append(post_name, post_delete),
+					post_body.append(post_context)
+				)
 			);
 		} else alert('请输入内容');
-	});
+		post_index++;
+	};
+	$('#sub').on('click', BindFun);
 </script>
