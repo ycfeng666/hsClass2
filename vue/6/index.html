@@ -62,27 +62,13 @@
 </head>
 <body>
 	<div id="app">
-		<!-- 组件首页 -->
-		<template id="First">
-			<router-link
-				v-for="item,index in userList"
-				:key="index"
-				:to="'/user-' + item.uid + '/fk'"
-				v-slot="{navigate}"
-				custom
-			>
-				<a class="userSpan" @click="navigate">{{item.name}}</a>
-			</router-link>
-		</template>
-		<!-- 组件其他页 -->
-		<template id="Order"><router-view></router-view></template>
 		<!-- v-slot: 通过一个作用域插槽<router-link> - 暴露底层的定制能力。
 		这是一个更高阶的 API，主要面向库作者，但也可以为开发者提供便利，
 		多数情况用在一个类似 NavLink 这样的组件里 -->
 		<div class="menu">
 			<img src="../../libs/img/return.jpg" @click="returnIndex" />
 			<router-link
-				v-for="item,index in routes[1].children"
+				v-for="item,index in routes"
 				:key="index"
 				:to="'/user-' + userID + item.meta.url"
 				v-slot="{navigate,isActive}"
@@ -91,8 +77,9 @@
 				<!-- navigate：触发导航的函数。会在必要时自动阻止事件，和 router-link 同理。 -->
 				<!-- isActive：如果需要应用激活的 class 则为 true。允许应用一个任意的 class。 -->
 				<div
+					v-if="index !==0"
 					class="tab"
-					@click="navigate();menuTabClick()"
+					@click="navigate"
 					:class="{'click':isActive}"
 				>
 					{{item.meta.title}}
@@ -100,9 +87,7 @@
 			</router-link>
 		</div>
 		<div class="main">
-			<!-- <firstView v-if="viewName === 'firstView'" :key="100"></firstView>
-			<orderView v-else :key="200"></orderView> -->
-			<component :is="viewName"></component>
+			<router-view></router-view>
 		</div>
 	</div>
 </body>
@@ -111,46 +96,82 @@
 <!-- 请引入vue-router4.x版本 -->
 <script src="../../libs/js/vue-router.min.js"></script>
 <script>
-	const { createApp, reactive, toRefs } = Vue,
+	const { createApp, reactive, toRefs, h } = Vue,
 		{ createRouter, createWebHashHistory, useRoute, useRouter } = VueRouter,
+		data = reactive({
+			userID: 0,
+			userName: '',
+			viewName: 'first-view',
+			userList: [
+				{ uid: 11, name: '张三' },
+				{ uid: 22, name: '李四' },
+				{ uid: 33, name: '王五' },
+			],
+		}),
 		routes = [
 			{
 				path: '/',
-				component: {},
+				component: {
+					render() {
+						// h 接收三个参数
+						// 1,type 元素的类型
+						// 2,propsOrChildren 数据对象, 这里主要表示(props, attrs, dom props, class 和 style)
+						// 3,children 子节点
+						return h(
+							'div',
+							data.userList.map((item, index) => {
+								return h(
+									'a',
+									{
+										class: 'userSpan',
+										onClick: () => userToView(item),
+									},
+									item.name
+								);
+							})
+						);
+					},
+				},
 				meta: {
 					title: '首页',
 					url: '/',
 				},
 			},
 			{
-				path: '/user-:uid/',
-				component: {},
-				children: [
-					{
-						path: 'fk',
-						component: { template: '待付款' },
-						meta: {
-							title: '待付款',
-							url: '/fk',
-						},
+				path: '/user-:uid/fk',
+				component: {
+					render() {
+						return h('span', {}, [data.userName + '待付款页面']);
 					},
-					{
-						path: 'fh',
-						component: { template: '待发货' },
-						meta: {
-							title: '待发货',
-							url: '/fh',
-						},
+				},
+				meta: {
+					title: '待付款',
+					url: '/fk',
+				},
+			},
+			{
+				path: '/user-:uid/fh',
+				component: {
+					render() {
+						return h('span', {}, [data.userName + '待发货页面']);
 					},
-					{
-						path: 'sh',
-						component: { template: '待收货' },
-						meta: {
-							title: '待收货',
-							url: '/sh',
-						},
+				},
+				meta: {
+					title: '待发货',
+					url: '/fh',
+				},
+			},
+			{
+				path: '/user-:uid/sh',
+				component: {
+					render() {
+						return h('span', {}, [data.userName + '待收货页面']);
 					},
-				],
+				},
+				meta: {
+					title: '待收货',
+					url: '/sh',
+				},
 			},
 		],
 		router = createRouter({
@@ -158,34 +179,23 @@
 			routes,
 		}),
 		app = createApp({
-			// 未知原因，这个绑定ID无法切换,等待修复
-			components: {
-				'first-view': { template: '11' },
-				'order-view': { template: '22' },
-			},
 			setup() {
 				const router = useRouter(),
-					route = useRoute(),
-					data = reactive({
-						userID: 0,
-						viewName: 'first-view',
-						userList: [
-							{ uid: 11, name: '张三' },
-							{ uid: 22, name: '李四' },
-							{ uid: 33, name: '王五' },
-						],
-					});
+					route = useRoute();
 				returnIndex = () => {
-					data.viewName = 'first-view';
+					data.userID = 0;
+					data.userName = '';
 					router.push('/');
 				};
-				menuTabClick = () => {
-					data.viewName = 'order-view';
+				userToView = (item) => {
+					data.userID = item.uid;
+					data.userName = item.name + '的';
+					router.push('/user-' + item.uid + '/fk');
 				};
 				return {
 					routes,
 					returnIndex,
-					menuTabClick,
+					userToView,
 					...toRefs(data),
 				};
 			},
