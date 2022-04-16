@@ -96,7 +96,7 @@
 				post_name = $('<a>').addClass('post_name').text(name),
 				post_delete = $('<a>').addClass('post_delete').text("删除").attr("pid",post_index)
 				.click(function(){
-					$(".p_box_"+$(this).attr("pid")).remove();	
+					$(".p_box_"+$(this).attr("pid")).remove();
 				}),
 				post_body = $('<div>').addClass('post_body'),
 				post_context = $('<div>').addClass('post_context').text(context);
