@@ -6,6 +6,7 @@
 			font-size: 16px;
 			font-weight: 400;
 			line-height: 1.5;
+			--mt:10px;
 		}
 		.box {
 			border-radius: 4px;
@@ -16,7 +17,7 @@
 		.control {
 			box-sizing: border-box;
 			text-align: left;
-			margin-top: 10px;
+			margin-top: var(--mt);
 		}
 		.textarea,
 		.input {
@@ -48,6 +49,12 @@
 			cursor: pointer;
 			font-weight: bold;
 		}
+		.post_head > .post_delete{
+			float: right;
+			text-decoration: none;
+			color: red;
+			font-weight: bold;
+		}
 		.post_body > .post_context {
 			padding: 5px 0;
 		}
@@ -61,7 +68,7 @@
 		<div class="box write_box">
 			<h4>发表留言</h4>
 			<div class="control">
-				<input type="text" class="input" placeholder="用户名" id="name" />
+				<input type="text" class="input" placeholder="用户名" id="name" value="张三"/>
 			</div>
 			<div class="control">
 				<b>正文</b>
@@ -77,20 +84,26 @@
 		</div>
 	</div>
 </body>
-<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script src="jquery-3.6.0.js"></script>
 <script>
+	let post_index = 0;
 	$('#sub').click(() => {
 		const name = $('#name').val(),
 			context = $('#context').val();
 		if (name !== '' && context !== '') {
-			const box = $('<div>').addClass('box'),
+			const box = $('<div>').addClass('box p_box_'+post_index),
 				post_head = $('<div>').addClass('post_head'),
 				post_name = $('<a>').addClass('post_name').text(name),
+				post_delete = $('<a>').addClass('post_delete').text("删除").attr("pid",post_index)
+				.click(function(){
+					$(".p_box_"+$(this).attr("pid")).remove();	
+				}),
 				post_body = $('<div>').addClass('post_body'),
 				post_context = $('<div>').addClass('post_context').text(context);
 			$('.post_list').append(
-				box.append(post_head.append(post_name), post_body.append(post_context))
+				box.append(post_head.append(post_name,post_delete), post_body.append(post_context))
 			);
+			post_index++;
 		} else alert('请输入内容');
 	});
 </script>
