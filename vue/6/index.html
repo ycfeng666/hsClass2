@@ -70,7 +70,7 @@
 			<router-link
 				v-for="item,index in routes"
 				:key="index"
-				:to="'/user-' + userID + item.meta.url"
+				:to="'/user-' + user.uid + item.meta.url"
 				v-slot="{navigate,isActive}"
 				custom
 			>
@@ -99,8 +99,10 @@
 	const { createApp, reactive, toRefs, h } = Vue,
 		{ createRouter, createWebHashHistory, useRoute, useRouter } = VueRouter,
 		data = reactive({
-			userID: 0,
-			userName: '',
+			user: {
+				uid: 0,
+				name: '',
+			},
 			viewName: 'first-view',
 			userList: [
 				{ uid: 11, name: '张三' },
@@ -141,7 +143,7 @@
 				path: '/user-:uid/fk',
 				component: {
 					render() {
-						return h('span', {}, [data.userName + '待付款页面']);
+						return h('span', {}, [data.user.name + '待付款页面']);
 					},
 				},
 				meta: {
@@ -153,11 +155,11 @@
 				path: '/user-:uid/fh',
 				component: {
 					render() {
-						return h('span', {}, [data.userName + '待发货页面']);
+						return h('span', {}, [data.user.name + '待发货页面']);
 					},
 				},
 				meta: {
-					title: '待发货',
+					title: '待发货',        
 					url: '/fh',
 				},
 			},
@@ -165,7 +167,7 @@
 				path: '/user-:uid/sh',
 				component: {
 					render() {
-						return h('span', {}, [data.userName + '待收货页面']);
+						return h('span', {}, [data.user.name + '待收货页面']);
 					},
 				},
 				meta: {
@@ -183,13 +185,11 @@
 				const router = useRouter(),
 					route = useRoute();
 				returnIndex = () => {
-					data.userID = 0;
-					data.userName = '';
+					data.user = { uid: 0, name: '' };
 					router.push('/');
 				};
 				userToView = (item) => {
-					data.userID = item.uid;
-					data.userName = item.name + '的';
+					data.user = JSON.parse(JSON.stringify(item));
 					router.push('/user-' + item.uid + '/fk');
 				};
 				return {
