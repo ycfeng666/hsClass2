@@ -43,6 +43,7 @@
 *WEB-INF*/
 *packages*/
 *libs*/
+*vue_cli*/
 
 # 排除目录
 java/Servers/
