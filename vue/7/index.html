@@ -1,0 +1,153 @@
+<head>
+	<style>
+		#app {
+			width: 500px;
+			margin: 50px auto;
+			border: 1px solid #888;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+			text-align: center;
+		}
+		.menu {
+			border-bottom: 1px solid #888;
+			height: 50px;
+			line-height: 50px;
+			display: flex;
+			background-color: #33344a;
+		}
+		.menu .tab {
+			font-weight: bold;
+			cursor: pointer;
+			flex: 1;
+			transition: 0.3s;
+			color: #717181;
+		}
+		.menu > img {
+			width: 45px;
+			height: 100%;
+			cursor: pointer;
+		}
+		.menu .tab:not(:first-child):not(:last-child) {
+			border-left: 1px solid #888;
+			border-right: 1px solid #888;
+		}
+		.click {
+			background-color: #e74c3c;
+			color: white !important;
+		}
+		.main {
+			height: 180px;
+			line-height: 180px;
+			background-color: #fff;
+			color: #999;
+			text-align: left;
+		}
+
+		.main .childMenu {
+			width: 20%;
+			display: inline-block;
+		}
+		.main .childMenu .tab {
+			height: 60px;
+			line-height: 60px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.click2 {
+			color: blue !important;
+		}
+		.main .view {
+			display: inline-block;
+			vertical-align: top;
+			width: 80%;
+			text-align: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<!-- v-slot: 通过一个作用域插槽<router-link> - 暴露底层的定制能力。
+		这是一个更高阶的 API，主要面向库作者，但也可以为开发者提供便利，
+		多数情况用在一个类似 NavLink 这样的组件里 -->
+		<div class="menu">
+			<router-link
+				v-for="item,index in routes"
+				:key="index"
+				:to="item.meta.url"
+				v-slot="{navigate,isActive}"
+				custom
+			>
+				<!-- navigate：触发导航的函数。会在必要时自动阻止事件，和 router-link 同理。 -->
+				<!-- isActive：如果需要应用激活的 class 则为 true。允许应用一个任意的 class。 -->
+				<div
+					class="tab"
+					@click="navigate();changeViewIndex(index)"
+					:class="{'click':isActive}"
+				>
+					{{item.meta.title}}
+				</div>
+			</router-link>
+		</div>
+		<div class="main">
+			<div class="childMenu">
+				<router-link
+					v-for="item,index in routes[viewIndex].children"
+					:key="index"
+					:to="item.meta.url"
+					v-slot="{navigate,isActive}"
+					custom
+				>
+					<div class="tab" :class="{'click2':isActive}" @click="navigate">
+						{{item.meta.name}}
+					</div>
+				</router-link>
+			</div>
+			<div class="view"><router-view></router-view></div>
+		</div>
+	</div>
+</body>
+<!-- 请引入vue3.1以上版本 -->
+<script src="../../libs/js/vue3.min.js"></script>
+<!-- 请引入vue-router4.x版本 -->
+<script src="../../libs/js/vue-router.min.js"></script>
+<!-- 动态生成路由数组 -->
+<script src="routes.js"></script>
+<script>
+	const { createApp, reactive, toRefs, h, resolveComponent, onMounted } = Vue,
+		{ createRouter, createWebHashHistory, useRoute, useRouter } = VueRouter,
+		data = reactive({
+			viewIndex: 0,
+		}),
+		router = createRouter({
+			history: createWebHashHistory(),
+			routes,
+		}),
+		app = createApp({
+			setup() {
+				const router = useRouter(),
+					route = useRoute(),
+					returnIndex = () => {
+						router.push('/');
+					},
+					changeViewIndex = (id) => {
+						data.viewIndex = id;
+					};
+				onMounted(() => {
+					data.viewIndex = route.meta.viewIndex;
+				});
+				return {
+					routes,
+					returnIndex,
+					changeViewIndex,
+					...toRefs(data),
+				};
+			},
+		});
+	// 你也可以注册全局后置钩子，然而和守卫不同的是，这些钩子不会接受 next 函数也不会改变导航本身：
+	router.afterEach((to, from) => {
+		document.title = to.meta.title;
+	});
+	app.use(router);
+	// 所有的导航，包括第一个导航，现在都是异步的，这意味着，
+	// 如果你使用一个 transition，你可能需要等待路由 ready 好后再挂载程序
+	router.isReady().then(() => app.mount('#app'));
+</script>

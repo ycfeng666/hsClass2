@@ -313,3 +313,24 @@
    ![](https://i.iluoli.moe/2022/04/14/6e5860414095228.png)
 
    ![](https://i.iluoli.moe/2022/04/14/9d9210414095247.png)
+
+<br/>
+
+### 第七次实验
+
+2022 年 4 月 21 日
+
+#### 实验目的
+
+1. 熟悉路由的基本概念，以及 vue-router 插件的基本使用
+2. 掌握基于 vue-router 的项目基本架构和构建方法
+
+#### 实验内容
+
+1. 在实验六的基础上进一步应用嵌套路由实现文字选项卡和内容的切换。页面中有“音乐”、“电影”和“新闻”3 个类别选项卡，单击不同选项卡下的子栏目可以显示对应的内容，结果如图 1、图 2 所示
+
+   **[点击跳转至代码 1](https://github.com/ycfeng666/hsClass2/tree/main/vue/7/index.html)**
+
+   **[点击跳转至代码 2](https://github.com/ycfeng666/hsClass2/tree/main/vue/7/routes.js)**
+
+   ![](https://i.iluoli.moe/2022/04/22/deabd0422012353.png)
