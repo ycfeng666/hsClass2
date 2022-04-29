@@ -44,6 +44,7 @@
 *packages*/
 *libs*/
 *vue_cli*/
+*node*/
 
 # 排除目录
 java/Servers/
