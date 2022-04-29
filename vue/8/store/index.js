@@ -37,13 +37,8 @@ export const shopStore = defineStore('shop', {
 			const self = this,
 				data = self.filterShopDataById(id),
 				bookI = self.getSartDataIndexById(id);
-			data.forEach((item) => {
-				if (bookI >= 0) {
-					self.sartData[bookI].num++;
-				} else {
-					self.sartData.push(item);
-				}
-			});
+			if (bookI >= 0) self.sartData[bookI].num++;
+			else self.sartData.push(data[0]);
 		},
 		// 调整购物车数据
 		adjustSartData(id) {
@@ -56,13 +51,15 @@ export const shopStore = defineStore('shop', {
 		// 根据ID排除筛选商城数据
 		filterShopDataById(store) {
 			return (id) => {
-				return store.shopData.filter((item) => item.id === id);
+				const tempData = JSON.parse(JSON.stringify(store.shopData));
+				return tempData.filter((item) => item.id === id);
 			};
 		},
 		// 根据ID查找索引
 		getSartDataIndexById(store) {
 			return (id) => {
-				return store.sartData.findIndex((item) => item.id === id);
+				const tempData = JSON.parse(JSON.stringify(store.sartData));
+				return tempData.findIndex((item) => item.id === id);
 			};
 		},
 	},

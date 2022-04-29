@@ -70,7 +70,6 @@
    **[点击跳转至代码目录](https://github.com/ycfeng666/hsClass2/tree/main/asp/3/classWork/classWork1)**
 
 2. 设计一个简单的聊天室，要求
-
    1. 用户登录后，能够显示当前用户
    2. 能够选择文字显示颜色后发言
 
@@ -175,11 +174,12 @@
 
 #### 实验目的
 
-1. 待定
+1. 掌握 ajax 异步获取数据
+2. 掌握常用 load()方法，get()方法，ajax()方法的使用
 
 #### 实验内容
 
-1. 实现个人博客发帖功能
+1. 使用 ajax 实现如图个人博客发帖功能
 
    ![](https://i.iluoli.moe/2022/04/13/f450b0413074331.png)
 
@@ -358,3 +358,22 @@
    **[点击跳转至代码 2](https://github.com/ycfeng666/hsClass2/tree/main/vue/7/routes.js)**
 
    ![](https://i.iluoli.moe/2022/04/22/deabd0422012353.png)
+
+<br/>
+
+### 第八次实验
+
+2022 年 4 月 28 日
+
+#### 实验目的
+
+1. 熟悉 vuex 组件状态管理，vuex 的基本特性和 store 实例方法的使用
+2. 掌握 vuex 中的 mutations 状态提交与 actions 状态分完成组件状态变化的方法
+
+#### 实验内容
+
+1. 实现列表的增删改查
+
+   **[点击跳转至代码](https://github.com/ycfeng666/hsClass2/tree/main/vue/8/App.vue)**
+
+   ![](https://i.iluoli.moe/2022/04/29/8698e0429105205.png)
