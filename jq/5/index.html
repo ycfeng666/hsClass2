@@ -1,4 +1,6 @@
 <head>
+	<title>留言板</title>
+	<meta charset="UTF-8" />
 	<style>
 		#app {
 			margin: 60px auto;
@@ -100,32 +102,38 @@
 <script src="../../libs/js/jquery-3.6.0.min.js"></script>
 <script>
 	let post_index = 0;
-	const BindFun = () => {
-		const name = $('#name').val(),
-			context = $('#context').val();
-		if (name !== '') {
-			const box = $('<div>').addClass('box'),
+	const BindFun = (...arr) => {
+		if (arr[0] !== '') {
+			const box = $('<div>').addClass('box').attr('pid', post_index),
 				post_head = $('<div>').addClass('post_head'),
-				post_name = $('<a>').addClass('post_name').text(name),
+				post_name = $('<a>').addClass('post_name').text(arr[0]),
 				post_delete = $('<a>')
 					.addClass('post_delete')
 					.text('删除')
-					.attr('pid', post_index)
 					.click(function () {
 						$(this).parent().parent().remove();
 					}),
 				post_body = $('<div>').addClass('post_body'),
 				post_context = $('<div>')
 					.addClass('post_context')
-					.text(context !== '' ? context : '用户没有输入');
+					.text(arr[1] !== '' ? arr[1] : '用户没有输入内容');
 			$('.post_list').append(
 				box.append(
 					post_head.append(post_name, post_delete),
 					post_body.append(post_context)
 				)
 			);
+			post_index++;
 		} else alert('请输入内容');
-		post_index++;
 	};
-	$('#sub').on('click', BindFun);
+	$('#sub').on('click', () => {
+		BindFun($('#name').val(), $('#context').val());
+	});
+	$(() => {
+		$.getJSON('blog.json', (e) => {
+			e.data.data.forEach((item) => {
+				BindFun(item.name, item.context);
+			});
+		});
+	});
 </script>
