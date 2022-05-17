@@ -1,0 +1,116 @@
+<head>
+	<style>
+		.app {
+			width: 50%;
+			margin: 100px auto;
+			display: flex;
+			height: 45%;
+		}
+		.left {
+			flex: 2;
+			position: relative;
+		}
+		.left .context {
+			width: 100%;
+			height: 50px;
+			line-height: 50px;
+			background-color: rgba(0, 0, 0, 0.5);
+			color: #ffffff;
+			position: absolute;
+			left: 0px;
+			bottom: 0px;
+			text-indent: 5px;
+		}
+		.right {
+			flex: 1;
+			border: 2px solid blue;
+		}
+		.app img {
+			width: 100%;
+			height: 100%;
+		}
+		.right .box {
+			width: 100%;
+			height: 100%;
+			display: grid;
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-rows: repeat(3, 1fr);
+			margin: auto;
+			grid-gap: 5px;
+		}
+		.opacity_5 {
+			opacity: 0.5;
+		}
+	</style>
+</head>
+<body>
+	<div class="app">
+		<div class="left"></div>
+		<div class="right">
+			<div class="box"></div>
+		</div>
+	</div>
+</body>
+
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script>
+	let imgIndex = 0,
+		timer = null;
+	const contextList = [
+			'珍馐记',
+			'穿越时空之旅',
+			'文豪试炼场8',
+			'纪录片开放周',
+			'鬼畜全明星',
+			'村庄接待员',
+			'春日新星直播',
+		],
+		imgSrc = '../../libs/img/';
+	$('.left').append(
+		$('<img>').attr({ src: imgSrc + '100.webp', id: 'leftImg' }),
+		$('<span>').addClass('context').text(contextList[0]).hide()
+	);
+	for (let i = 1, length = 6; i <= length; i++) {
+		const imgName = imgSrc + (100 + i) + '.webp',
+			img = $('<img>')
+				.attr({ src: imgName, id: 'rightImg-' + i })
+        
+				.addClass('opacity_5')
+				.hover(
+					function () {
+						$(this).removeClass('opacity_5');
+						$('.context').text(contextList[i]);
+						$('#leftImg')
+							.attr('src', imgName)
+							.hover(
+								() => {
+									$('.context').show();
+									clearInterval(timer);
+								},
+								() => {
+									$('.context').hide();
+									setTimer();
+								}
+							);
+						imgIndex = i;
+					},
+					function () {
+						$(this).addClass('opacity_5');
+					}
+				);
+		$('.box').append(img);
+	}
+
+	function setTimer() {
+		timer = setInterval(() => {
+			$('.right')
+				.find('img')
+				.eq(imgIndex)
+				.trigger('mouseover')
+				.siblings()
+				.addClass('opacity_5');
+			if (imgIndex === 6) imgIndex = 0;
+		}, 3000);
+	}
+	setTimer();
+</script>
