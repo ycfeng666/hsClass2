@@ -1,0 +1,100 @@
+<head>
+	<style>
+		.app {
+			width: 1250px;
+			margin: 50px auto;
+			padding: 5px;
+			box-shadow: 0 2px 3px rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 10%);
+			display: flex;
+		}
+		.item {
+			display: 1;
+			position: relative;
+			cursor: pointer;
+		}
+		.small {
+			width: 64px;
+			height: 64px;
+		}
+		.big {
+			height: 180px;
+			width: 250px;
+		}
+		.mask {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background-color: rgba(0, 0, 0, 0.7);
+		}
+		.ms {
+			width: 64px;
+			height: 64px;
+		}
+		.mb {
+			width: 250px;
+			height: 180px;
+		}
+	</style>
+</head>
+<body>
+	<div class="app"></div>
+</body>
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script>
+	const smallList = [
+			'108k2_small.png',
+			'109k1_small.png',
+			'134k5_small.png',
+			'135k1_small.png',
+			'144k1_small.png',
+		],
+		bigList = [
+			'108k2_mid.jpg',
+			'109k1_mid.jpg',
+			'134k5_mid.jpg',
+			'135k1_mid.jpg',
+			'144k1_mid.jpg',
+		],
+		imgBeforSrc = '../../libs/img/';
+	for (let i = 0, j = smallList.length; i < j; i++) {
+		const item = $('<div>')
+				.addClass('item')
+				.click(function () {
+					const item_img = $('img[mid=' + i + ']'),
+						item_other_img = $(this).siblings().find('img');
+					// item_mask = $('.mask-' + i),
+					// item_other_mask = $(this).siblings().find('.mask');
+					if (item_img.hasClass('small'))
+						item_img.attr({ src: imgBeforSrc + bigList[i] }).animate({
+							width: 250,
+							height: 180,
+						});
+					else
+						item_img.attr({ src: imgBeforSrc + smallList[i] }).animate({
+							width: 64,
+							height: 64,
+						});
+					// item_img.toggleClass('small').toggleClass('big');
+					// item_mask.toggle();
+					item_other_img.each((index, ele) =>
+						$(ele)
+							.attr('src', imgBeforSrc + smallList[$(ele).attr('mid')])
+							.animate({
+								width: 64,
+								height: 64,
+							})
+					);
+					// item_other_mask.each((index, ele) => $(ele).show());
+				}),
+			img = $('<img>')
+				.attr({
+					src: imgBeforSrc + smallList[i],
+					mid: i,
+					title: '图片' + (i + 1),
+				})
+				.addClass('small');
+		// 	mask = $('<div>').addClass('mask mask-' + i + ' ms');
+		// if (i === 0) mask.hide();
+		$('.app').append(item.append(img));
+	}
+</script>
