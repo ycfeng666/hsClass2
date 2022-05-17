@@ -1,0 +1,70 @@
+<head>
+	<style>
+		.app {
+			width: 630px;
+			margin: 50px auto;
+			position: relative;
+		}
+		.box img {
+			width: 100%;
+		}
+		.mask {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.4);
+			height: 30px;
+			padding: 3px 0;
+			width: 100%;
+		}
+		.mask .nums {
+			float: right;
+			width: 50%;
+			text-align: center;
+		}
+		.nums .btn {
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+			background-color: #fff;
+			color: orangered;
+			margin-left: 15px;
+			border: 0;
+			cursor: pointer;
+			vertical-align: middle;
+			font-weight: bold;
+		}
+		.nums .click {
+			background-color: orangered;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div class="app">
+		<div class="box"></div>
+		<div class="mask">
+			<div class="nums"></div>
+		</div>
+	</div>
+</body>
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script>
+	const imgSrc = '../../libs/img/',
+		img = $('<img>').attr({ src: imgSrc + '200.webp' });
+	$('.box').append(img);
+	for (let i = 0, j = 5; i < j; i++) {
+		const numBox = $('<button>')
+			.addClass('btn')
+			.text(i + 1)
+			.attr({ i_src: 200 + i })
+			.click(function () {
+				$('.box')
+					.find('img')
+					.attr('src', imgSrc + $(this).attr('i_src') + '.webp');
+				$(this).addClass('click').siblings().removeClass('click');
+			});
+		if (i === 0) numBox.addClass('click');
+		$('.nums').append(numBox);
+	}
+</script>

@@ -1,0 +1,101 @@
+<head>
+	<style>
+		.app {
+			width: 630px;
+			margin: 50px auto;
+			position: relative;
+		}
+		.box img {
+			width: 100%;
+		}
+		.mask {
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			background-color: rgba(0, 0, 0, 0.4);
+			height: 30px;
+			padding: 3px 0;
+			width: 100%;
+			text-align: center;
+			display: table;
+		}
+		.nums {
+			display: table-cell;
+			vertical-align: middle;
+		}
+		.mask .btn {
+			width: 12px;
+			height: 12px;
+			background-color: #fff;
+			margin-left: 15px;
+			border: 0;
+			border-radius: 50%;
+			cursor: pointer;
+		}
+		.mask .click {
+			background-color: orangered;
+			color: white;
+		}
+		.before,
+		.after {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.before {
+			left: 0;
+			top: 50%;
+		}
+		.after {
+			right: 0;
+			top: 50%;
+		}
+	</style>
+</head>
+<body>
+	<div class="app">
+		<div class="box"></div>
+		<div class="mask">
+			<div class="nums"></div>
+		</div>
+		<div class="before" i_src="204">
+			<img src="../../libs/icon/right.png" class="b_img" />
+		</div>
+		<div class="after" i_src="201">
+			<img src="../../libs/icon/left.png" class="a_img" />
+		</div>
+	</div>
+</body>
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script>
+	const imgSrc = '../../libs/img/',
+		img = $('<img>')
+			.attr({ src: imgSrc + '200.webp' })
+			.addClass('my_img');
+	let nowImg = 0;
+	$('.box').append(img);
+	for (let i = 0, j = 5; i < j; i++) {
+		const numBox = $('<button>')
+			.addClass('btn')
+			.attr({ i_src: 200 + i })
+			.click(function () {
+				$('.my_img').attr('src', imgSrc + $(this).attr('i_src') + '.webp');
+				$(this).addClass('click').siblings().removeClass('click');
+				nowImg = i;
+			});
+		if (i === 0) numBox.addClass('click');
+		$('.nums').append(numBox);
+	}
+	$('.before').click(function () {
+		$('.btn')
+			.eq(nowImg - 1)
+			.trigger('click');
+	});
+	$('.after').click(function () {
+		const toImg = nowImg + 1 === 5 ? 0 : nowImg + 1;
+		$('.btn').eq(toImg).trigger('click');
+	});
+</script>

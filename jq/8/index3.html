@@ -1,0 +1,87 @@
+<head>
+	<style>
+		.box {
+			width: 50%;
+			margin: 100px auto;
+			text-align: center;
+			/* 边框颜色-灰 */
+			--bc_gray: #7d7d7d transparent transparent transparent;
+			/* 边框颜色-橙 */
+			--bc_orange: #ff4500 transparent transparent transparent;
+			/* 边框样式 */
+			--bs: solid;
+			/* 旋转角度 */
+			--rot7: 70deg;
+			/* 调整星星大小把下面的参数全部等比增大 */
+			/* 上边框宽度 */
+			--btw: 12px;
+			/* 左右边框宽度 */
+			--byw: 20px;
+			/* 星星之间的距离,远离右边 */
+			--mr2: 2rem;
+			/* 绝对定位的左距离 */
+			--abl: -20px;
+			/* 绝对定位的上距离 */
+			--abt: -10px;
+		}
+		.smaller {
+			border-color: var(--bc_gray);
+			border-style: var(--bs);
+			border-top-width: var(--btw);
+			border-right-width: var(--byw);
+			border-left-width: var(--byw);
+			margin-right: var(--mr2);
+			position: relative;
+			display: inline-block;
+			cursor: pointer;
+		}
+		.smaller:before,
+		.smaller:after {
+			border-color: var(--bc_gray);
+			border-style: var(--bs);
+			border-top-width: var(--btw);
+			border-right-width: var(--byw);
+			border-left-width: var(--byw);
+			content: '';
+			left: var(--abl);
+			position: absolute;
+			top: var(--abt);
+		}
+		.smaller:before {
+			transform: rotate(var(--rot7));
+		}
+		.smaller:after {
+			transform: rotate(calc(var(--rot7) * -1));
+		}
+		.click,
+		.click::before,
+		.click::after {
+			border-color: var(--bc_orange);
+		}
+	</style>
+</head>
+
+<body>
+	<div class="box"></div>
+</body>
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script>
+	let isOK = false;
+	for (let i = 0, j = 5; i < j; i++) {
+		const star = $('<div>')
+			.addClass('smaller')
+			.hover(
+				function () {
+					if (!isOK) $(this).addClass('click').prevAll().addClass('click');
+				},
+				function () {
+					if (!isOK)
+						$(this).removeClass('click').prevAll().removeClass('click');
+				}
+			)
+			.click(function () {
+				isOK = !isOK;
+			});
+		$('.box').append(star);
+	}
+</script>
