@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+	<siteMapNode url="index.aspx" title="首页" >
+		<siteMapNode url="" title="管理员管理">
+			<siteMapNode url="admin.aspx" title="进入网站首页"/>
+		</siteMapNode>
+		<siteMapNode url="" title="用户管理">
+			<siteMapNode url="" title="用户信息添加" />
+			<siteMapNode url="" title="用户信息查找" />
+		</siteMapNode>
+		<siteMapNode url="" title="公告管理">
+			<siteMapNode url="" title="添加公告"/>
+			<siteMapNode url="" title="留言本管理"/>
+		</siteMapNode>
+		<siteMapNode url="" title="产品资源下载管理">
+			<siteMapNode url="" title="添加产品信息"/>
+		</siteMapNode>
+		<siteMapNode url="" title="产品类别管理">
+			<siteMapNode url="" title="添加产品类别"/>
+		</siteMapNode>
+		<siteMapNode url="" title="友情链接管理">
+			<siteMapNode url="" title="添加友情链接"/>
+			<siteMapNode url="" title="忘记密码"/>
+			<siteMapNode url="" title="安全推出"/>
+		</siteMapNode>
+	</siteMapNode>
+</siteMap>

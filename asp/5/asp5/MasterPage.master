@@ -1,0 +1,57 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+    <style>
+        #form1{
+             position:relative;
+        }
+        #top {
+            width: 100%;
+            text-align:center;
+        }
+
+        #bottom {
+            width: 100%;
+            text-align:center;
+        }
+
+        h3 {
+            position:absolute;
+            top: 20px;
+            right: 400px;
+        }
+
+        p {
+            position:absolute;
+            top: 60px;
+            right: 400px;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+          <h3><asp:Label ID="title" runat="server" Text="Label"></asp:Label></h3>
+          <p><asp:Label ID="time" runat="server" Text="Label"></asp:Label></p>
+        <div id="top">
+            <asp:Image ID="Image3" runat="server" Height="114px" ImageUrl="~/images/banner.jpg" />
+        </div>
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            <div id="wecontent"></div>
+        </asp:ContentPlaceHolder>
+
+        <div id="bottom">
+            <asp:Image ID="Image4" runat="server" ImageUrl="~/images/bottom.jpg" />
+        </div>
+
+
+    </form>
+</body>
+</html>

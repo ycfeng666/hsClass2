@@ -1,0 +1,77 @@
+<head>
+	<link rel="stylesheet" href="../../libs/css/fullpage.min.css" />
+	<style>
+		#menu {
+			display: flex;
+			position: fixed;
+			top: 20px;
+			left: 20px;
+			padding: 0;
+			margin: 0;
+		}
+		#menu div {
+			width: 80px;
+			height: 40px;
+			line-height: 40px;
+			border: 1px solid gray;
+			border-radius: 12px;
+			text-align: center;
+			background-color: rgba(255, 255, 255, 0.5);
+		}
+		#menu div:not(:first-child) {
+			margin-left: 25px;
+		}
+		#menu div a {
+			text-decoration: none;
+			color: black;
+		}
+		#menu .active {
+			background-color: rgba(0, 0, 0, 0.5);
+		}
+		#menu .active a {
+			color: white;
+		}
+		.section {
+			text-align: center;
+			color: white;
+			font-size: 18px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="ido"></div>
+	<div id="menu"></div>
+</body>
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script src="../../libs/js/fullpage.min.js"></script>
+<script>
+	const ColorList = ['#e77c8e', '#11659a', '#12a182', '#64483d'],
+		MenuList = ['1st', '2nd', '3rd', '4th'],
+		PoetryList = [
+			'蒹葭苍苍，白露为霜。所谓伊人，在水一方',
+			'对酒当歌，人生几何！譬如朝露，去日苦多',
+			'盛年不重来，一日难再晨。及时当勉励，岁月不待人',
+			'今人不见古时月，今月曾经照古人',
+		];
+
+	$(function () {
+		for (let i = 0, j = ColorList.length; i < j; i++) {
+			const section = $('<div>').text(PoetryList[i]).addClass('section'),
+				menuItem = $('<div>')
+					.attr({ 'data-menuanchor': MenuList[i] })
+					.append(
+						$('<a>')
+							.attr({ href: '#' + MenuList[i] })
+							.text('第' + (i + 1) + '屏')
+					);
+			$('#ido').append(section);
+			$('#menu').append(menuItem);
+		}
+		$('#ido').fullpage({
+			menu: '#menu',
+			anchors: MenuList,
+			sectionsColor: ColorList,
+		});
+	});
+</script>

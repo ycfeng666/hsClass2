@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="MasterPage2.master.cs" Inherits="MasterPage2" %>
+
+<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+     <table class="auto-style1" style="background-color: #66CCFF; height: 100%">
+        <tr>
+            <td class="auto-style1">
+                <asp:TreeView ID="TreeView1" runat="server" DataSourceID="SiteMapDataSource1">                 
+                </asp:TreeView>
+                <br />
+                <asp:SiteMapDataSource ID="SiteMapDataSource1" runat="server" />
+            </td>
+        </tr>
+    </table>
+</asp:Content>
+<asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" Runat="Server">
+     <table style="height: 300px; background-color: #66CCFF" class="auto-style1">
+        <tr>
+            <td>
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder3" runat="server"></asp:ContentPlaceHolder>
+            </td>
+        </tr>
+    </table>
+</asp:Content>
+

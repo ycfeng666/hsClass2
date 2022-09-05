@@ -45,6 +45,9 @@
 *libs*/
 *vue_cli*/
 *node*/
+*Bin6/
+*packages/
+*images/
 
 # 排除目录
 java/Servers/

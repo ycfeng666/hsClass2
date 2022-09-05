@@ -1,0 +1,79 @@
+<head>
+	<style>
+		#app {
+			width: 75%;
+			margin: 50px auto;
+		}
+		.animateBoxGroup {
+			display: flex;
+		}
+		.animateBoxGroup:not(:first-child) {
+			margin-top: 30px;
+		}
+		.animateBox {
+			flex: 1;
+			padding: 10px;
+		}
+		.animateBox img {
+			width: 100%;
+		}
+		.changeBox {
+			position: fixed;
+			top: 40%;
+			left: 20px;
+			width: 60px;
+			height: 200px;
+		}
+		.changeBoxItem {
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			cursor: pointer;
+		}
+		.changeBoxClick {
+			background-color: red;
+			color: white;
+		}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="changeBox"></div>
+	</div>
+</body>
+<script src="../../libs/js/jquery-3.6.0.min.js"></script>
+<script>
+	for (let i = 0, j = 4; i < j; i++) {
+		const animateBoxGroup = $('<div>').addClass('animateBoxGroup'),
+			animateBoxGroupTitle = $('<h3>')
+				.text('番剧' + (i + 1))
+				.attr({ tid: i }),
+			changeBoxItem = $('<div>')
+				.addClass('changeBoxItem')
+				.text('番剧' + (i + 1))
+				.attr({ tid: i })
+				.click(function () {
+					$('html,body').animate(
+						{
+							scrollTop: $('.animateBoxGroup').eq($(this).attr('tid')).offset()
+								.top,
+						},
+						300
+					);
+					$(this)
+						.addClass('changeBoxClick')
+						.siblings()
+						.removeClass('changeBoxClick');
+				});
+		for (let k = 0, l = 4; k < l; k++) {
+			const animateBox = $('<div>').addClass('animateBox'),
+				animateCover = $('<img>').attr({
+					src: '../../libs/img/' + (300 + i + k) + '.webp',
+				});
+			animateBoxGroup.append(animateBox.append(animateCover));
+		}
+		$('.changeBox').append(changeBoxItem);
+		$('#app').append(animateBoxGroupTitle, animateBoxGroup);
+	}
+	$(window).scroll(function () {});
+</script>
